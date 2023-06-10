@@ -454,9 +454,14 @@ function switchWidthHeight(tabname) {
     updateInput(height);
     return [];
 }
-
-
-setTimeout(()=>{
-gradioApp().querySelector('#tabs').querySelectorAll('button')[1].click();
-gradioApp().getElementById('mode_img2img').querySelectorAll('button')[2].click();
-}, 2000);
+function delay(ms){return new Promise(resolve => setTimeout(resolve, ms))}
+async function fire(){ 
+        await delay(100);
+        while (!gradioApp().getElementById("tab_img2img"))
+            {
+                await delay(200)
+            }
+        gradioApp().querySelector('#tabs').querySelectorAll('button')[1].click();
+        gradioApp().getElementById('mode_img2img').querySelectorAll('button')[2].click();
+}
+document.addEventListener("DOMContentLoaded", async function() {await fire()})
